@@ -1,2 +1,2 @@
 # SHARQ
-An Explainability Framework for Association Rules
+A Shapely-based Explainability Framework for Association Rules
