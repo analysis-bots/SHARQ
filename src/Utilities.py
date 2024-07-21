@@ -1,11 +1,11 @@
 from matplotlib import pyplot as plt
-from SharqUtils import *
+from .SharqUtils import *
 
 MAX_TOTAL_ELEMENTS_NUM = 40
 
 
 def create_single_rules_set(dataset, max_bins_size, max_tot_elements_num, sample_size, score_func, min_support, lift_threshold):
-    binary_df, val_to_bins_dict, avg_bins_df, elements_support_dict = dataset_prep_by_hyper_parameters(dataset, max_bins_size=max_bins_size, max_tot_elements_num=max_tot_elements_num, sample_size=sample_size)
+    binary_df, val_to_bins_dict, avg_bins_df, elements_support_dict = dataset_prep_by_hyper_parameters(dataset, max_bins_size=max_bins_size, max_tot_elements_num=max_tot_elements_num, sample_size=sample_size, binning_style='custom')
     rules_set = rules_prep_by_hyper_parameters(binary_df, score_func, min_support=min_support, lift_threshold=lift_threshold)
     file_name = 'example_' + dataset
     rules_set.to_csv('Rules/' + file_name + '.csv', index=False)

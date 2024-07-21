@@ -5,7 +5,7 @@ from scipy.io import arff
 bins_limits = [10, 10]
 
 
-def dataset_prep_by_hyper_parameters(dataset_name, max_bins_size, sample_size=None, max_tot_elements_num=None):
+def dataset_prep_by_hyper_parameters(dataset_name, max_bins_size, sample_size=None, max_tot_elements_num=None, binning_style='regular'):
     # get dataset
     if type(dataset_name) == str:
         if 'arff' in dataset_name:
@@ -28,7 +28,7 @@ def dataset_prep_by_hyper_parameters(dataset_name, max_bins_size, sample_size=No
 
     # bin the data (according to max_bins_size)
     if dataset_name == 'adult':
-        binary_df, val_to_bins_dict, avg_bins_df, elements_support_dict = adult_adjustments(dataset, max_bins_size, max_tot_elements_num)
+        binary_df, val_to_bins_dict, avg_bins_df, elements_support_dict = adult_adjustments(dataset, max_bins_size, max_tot_elements_num, binning_style=binning_style)
     elif dataset_name == 'spotify_all':
         binary_df, val_to_bins_dict, avg_bins_df, elements_support_dict = spotify_adjustments(dataset, max_bins_size, max_tot_elements_num)
     elif dataset_name == 'flights':
@@ -130,12 +130,12 @@ def regular_binning(orig_df, bins_max_size=4):
 #################################################
 
 
-def adult_adjustments(orig_df, bins_max_size=4, max_tot_elements_num=40):
+def adult_adjustments(orig_df, bins_max_size=4, max_tot_elements_num=40, binning_style='regular'):
     orig_df = orig_df[orig_df['occupation'] != '?']
     orig_df = orig_df[orig_df['workclass'] != '?']
     orig_df = orig_df.drop(columns=['education', 'marital-status', 'fnlwgt'])
 
-    binned_df, binary_df = get_adults_binned_df(orig_df, bins_max_size, max_tot_elements_num, binning_style='custom') # change to 'regular' for regular binning
+    binned_df, binary_df = get_adults_binned_df(orig_df, bins_max_size, max_tot_elements_num, binning_style=binning_style)
 
     val_to_bins_dict, avg_bins_df, elements_support_dict = get_dicts_processed_dfs_from_df(binned_df)
     return binary_df, val_to_bins_dict, avg_bins_df, elements_support_dict

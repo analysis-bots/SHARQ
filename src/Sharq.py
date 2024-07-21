@@ -1,7 +1,7 @@
 import itertools
 
-from Utilities import *
-from RulesUtils import *
+from .Utilities import *
+from .RulesUtils import *
 
 
 class Sharq:

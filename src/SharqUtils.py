@@ -1,5 +1,5 @@
-from RulesUtils import *
-from DatasetAdjustments import *
+from .RulesUtils import *
+from .DatasetAdjustments import *
 import math
 
 
